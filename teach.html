@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Teacher Dashboard | Smart Evaluation System</title>
+
+<style>
+/* ===== GLOBAL RESET & FONT ===== */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ===== BODY ===== */
+body{
+    background:#f4f6f8;
+}
+
+/* ===== TOP BAR ===== */
+.topbar{
+    height:60px;
+    background:#ffffff;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 20px;
+    border-bottom:2px solid #ddd;
+}
+.topbar h2{
+    color:#5a0f1b;
+}
+
+/* ===== LAYOUT ===== */
+.container{
+    display:flex;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+    width:240px;
+    background:#5a0f1b;
+    height:calc(100vh - 60px);
+    padding-top:20px;
+}
+.sidebar a{
+    display:block;
+    padding:14px 20px;
+    margin:6px;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:500;
+}
+.sidebar a.active,
+.sidebar a:hover{
+    background:#7a1f2d;
+}
+
+/* ===== MAIN CONTENT ===== */
+.main{
+    flex:1;
+    padding:25px;
+}
+
+/* ===== SECTIONS ===== */
+.section{ display:none; }
+.section.active{ display:block; }
+
+.section-title{
+    background:#5a0f1b;
+    color:white;
+    padding:14px;
+    font-size:20px;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+/* ===== CARDS ===== */
+.card{
+    background:white;
+    padding:22px;
+    border-radius:16px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.12);
+    margin-bottom:20px;
+}
+
+/* ===== DASHBOARD STATS ===== */
+.stats{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+}
+.stat-box{
+    flex:1;
+    min-width:200px;
+    background:#ffffff;
+    padding:22px;
+    border-left:6px solid #5a0f1b;
+    border-radius:14px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.12);
+}
+.stat-box h3{
+    margin:0;
+    font-size:30px;
+    color:#5a0f1b;
+}
+.stat-box p{
+    margin-top:6px;
+    font-weight:600;
+}
+
+/* ===== TABLE ===== */
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+th, td{
+    padding:12px;
+    border-bottom:1px solid #ddd;
+    text-align:left;
+}
+th{
+    background:#f2f2f2;
+}
+
+/* ===== BUTTON ===== */
+button{
+    background:#5a0f1b;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+    transition:0.3s;
+}
+button:hover{
+    background:#7a1f2d;
+}
+
+/* ===== FOOTER ===== */
+footer{
+    text-align:center;
+    padding:15px;
+    font-size:13px;
+    color:#555;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+    .container{
+        flex-direction:column;
+    }
+    .sidebar{
+        width:100%;
+        height:auto;
+        display:flex;
+        flex-wrap:wrap;
+    }
+    .sidebar a{
+        flex:1;
+        text-align:center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<div class="topbar">
+    <h2>Teacher Dashboard</h2>
+    <div>Welcome, Faculty</div>
+</div>
+
+<div class="container">
+
+<!-- ===== SIDEBAR ===== -->
+<div class="sidebar">
+    <a class="active" onclick="showPage('dashboard',this)">Dashboard</a>
+    <a onclick="showPage('students',this)">View Students</a>
+    <a onclick="showPage('exams',this)">Exams</a>
+    <a onclick="showPage('results',this)">Results</a>
+    <a onclick="showPage('questionbank',this)">Question Bank</a>
+    <a onclick="showPage('reports',this)">Reports</a>
+    <a>Logout</a>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="main">
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="section active">
+    <div class="section-title">Overview</div>
+    <div class="stats">
+        <div class="stat-box">
+            <h3>120</h3>
+            <p>Total Students</p>
+        </div>
+        <div class="stat-box">
+            <h3>3</h3>
+            <p>Ongoing Exams</p>
+        </div>
+        <div class="stat-box">
+            <h3>45</h3>
+            <p>Reports Generated</p>
+        </div>
+    </div>
+</div>
+
+<!-- STUDENTS -->
+<div id="students" class="section">
+    <div class="section-title">Students List</div>
+    <div class="card">
+        <table>
+            <tr>
+                <th>Admission No</th>
+                <th>Name</th>
+                <th>Course</th>
+            </tr>
+            <tr>
+                <td>23CS201</td>
+                <td>Gayathri M R</td>
+                <td>B.Tech CSE</td>
+            </tr>
+            <tr>
+                <td>23CS202</td>
+                <td>Anand R</td>
+                <td>B.Tech CSE</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- EXAMS -->
+<div id="exams" class="section">
+    <div class="section-title">Exams</div>
+    <div class="card">
+        <table>
+            <tr>
+                <th>Exam Name</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>DSA Test</td>
+                <td>15-Jan-2026</td>
+                <td>Ongoing</td>
+            </tr>
+            <tr>
+                <td>Python Quiz</td>
+                <td>10-Jan-2026</td>
+                <td>Completed</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- RESULTS -->
+<div id="results" class="section">
+    <div class="section-title">Results</div>
+    <div class="card">
+        <table>
+            <tr>
+                <th>Exam</th>
+                <th>Average</th>
+                <th>Pass %</th>
+            </tr>
+            <tr>
+                <td>DSA Test</td>
+                <td>78%</td>
+                <td>92%</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- QUESTION BANK -->
+<div id="questionbank" class="section">
+    <div class="section-title">Question Bank</div>
+    <div class="card">
+        <p>Total Questions: <b>350</b></p><br>
+        <button>Add New Question</button>
+    </div>
+</div>
+
+<!-- REPORTS -->
+<div id="reports" class="section">
+    <div class="section-title">Reports</div>
+    <div class="card">
+        <ul>
+            <li>DSA Test Performance Report</li>
+            <li>Student-wise Evaluation Report</li>
+            <li>Semester Summary</li>
+        </ul>
+    </div>
+</div>
+
+</div>
+</div>
+
+<footer>
+© Smart Evaluation System
+</footer>
+
+<script>
+function showPage(pageId, element){
+    document.querySelectorAll('.section').forEach(sec=>{
+        sec.classList.remove('active');
+    });
+    document.getElementById(pageId).classList.add('active');
+
+    if(element){
+        document.querySelectorAll('.sidebar a').forEach(a=>{
+            a.classList.remove('active');
+        });
+        element.classList.add('active');
+    }
+}
+</script>
+
+</body>
+</html>

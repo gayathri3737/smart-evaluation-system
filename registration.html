@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Student Registration</title>
+    <link rel="stylesheet" href="css.css">
+
+    <style>
+        /* ===== POPUP OVERLAY (UI ONLY) ===== */
+        .modal{
+            position:fixed;
+            inset:0;
+            background:rgba(0,0,0,0.6);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            z-index:1000;
+        }
+
+        .close-btn{
+            position:absolute;
+            top:15px;
+            right:20px;
+            font-size:22px;
+            font-weight:bold;
+            cursor:pointer;
+            color:#5a0f1b;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ===== REGISTRATION POPUP ===== -->
+<div class="modal">
+    <div class="register-box" style="width:540px; position:relative;">
+        <span class="close-btn">×</span>
+
+        <div class="register-title">Student Registration</div>
+
+        <div class="form-grid">
+            <input type="text" placeholder="Semester">
+            <input type="text" placeholder="Full Name">
+
+            <input type="text" placeholder="Username">
+            <input type="text" placeholder="College Roll Number">
+
+            <input type="password" placeholder="Password">
+            <input type="text" placeholder="Department">
+
+            <input type="password" placeholder="Confirm Password">
+            <input type="tel" placeholder="Mobile Number">
+
+            <input type="email" placeholder="Email ID">
+            <input type="file" class="file-input">
+
+            <button type="button" style="grid-column:1/3;">
+                Register
+            </button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

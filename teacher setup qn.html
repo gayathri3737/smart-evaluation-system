@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Evaluation System - Teacher Exam Setup</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(to right, #ffffff, #ffe5e5);
+        }
+
+        .container {
+            width: 85%;
+            max-width: 1000px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #c40000;
+            margin-bottom: 10px;
+        }
+
+        #examInfo {
+            text-align: center;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 25px;
+            padding: 10px;
+            background: #fff5f5;
+            border-left: 5px solid #c40000;
+            border-radius: 6px;
+        }
+
+        label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            outline: none;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: #c40000;
+            box-shadow: 0 0 5px rgba(196, 0, 0, 0.3);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .btn-primary {
+            background: #c40000;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #990000;
+        }
+
+        .btn-secondary {
+            background: #ffffff;
+            color: #c40000;
+            border: 2px solid #c40000;
+        }
+
+        .btn-secondary:hover {
+            background: #c40000;
+            color: white;
+        }
+
+        .question-box {
+            background: #fffafa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(196, 0, 0, 0.08);
+            border-left: 6px solid #c40000;
+        }
+
+        .question-box h3 {
+            color: #c40000;
+            margin-bottom: 10px;
+        }
+
+        .button-group {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Smart Evaluation System - Teacher Exam Setup</h2>
+
+    <div id="examInfo"></div>
+
+    <label>Enter Total Number of Questions:</label>
+    <input type="number" id="totalQuestions" min="1" placeholder="Enter number of questions">
+
+    <div class="button-group">
+        <button class="btn-secondary" onclick="generateQuestions()">Generate Questions</button>
+    </div>
+
+    <div id="questionsContainer"></div>
+
+    <div class="button-group">
+        <button class="btn-primary" id="setExamBtn">Set Exam</button>
+    </div>
+
+</div>
+
+<script>
+let examData = {
+    id: null,
+    name: null,
+    startTime: null,
+    questions: [],
+    students: []
+};
+
+function getQueryParam(name) {
+    const params = new URLSearchParams(window.location.search);
+    return params.get(name);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    const examId = getQueryParam('examId');
+    if (examId) {
+        const examsData = JSON.parse(localStorage.getItem('examsData') || '[]');
+        const exam = examsData.find(e => String(e.id) === String(examId));
+        if (exam) {
+            examData = exam;
+            const infoDiv = document.getElementById('examInfo');
+            infoDiv.textContent =
+                `Exam: ${exam.name} — Start: ${exam.startTime} — Duration: ${exam.duration} mins — Students: ${(exam.students || []).length}`;
+        }
+    }
+});
+
+function generateQuestions() {
+    const total = document.getElementById("totalQuestions").value;
+    const container = document.getElementById("questionsContainer");
+    container.innerHTML = "";
+
+    for (let i = 1; i <= total; i++) {
+        container.innerHTML += `
+            <div class="question-box">
+                <h3>Question ${i}</h3>
+
+                <label>Question:</label>
+                <textarea id="question${i}" placeholder="Enter question here"></textarea>
+
+                <label>Teacher Answer:</label>
+                <textarea id="teacher${i}" placeholder="Enter correct answer"></textarea>
+
+                <label>Type:</label>
+                <select id="type${i}">
+                    <option value="numerical">Numerical</option>
+                    <option value="code">Code</option>
+                    <option value="direct">Direct Fill</option>
+                    <option value="english">English Semantic</option>
+                </select>
+            </div>
+        `;
+    }
+}
+
+document.getElementById("setExamBtn").addEventListener("click", () => {
+    const total = document.getElementById("totalQuestions").value;
+
+    if(total < 1){
+        alert("Enter number of questions first!");
+        return;
+    }
+
+    let questions = [];
+    for (let i = 1; i <= total; i++) {
+        const q = document.getElementById(`question${i}`).value;
+        const a = document.getElementById(`teacher${i}`).value;
+        const t = document.getElementById(`type${i}`).value;
+
+        if(!q || !a){
+            alert(`Please fill question and teacher answer for Q${i}`);
+            return;
+        }
+
+        questions.push({question: q, teacherAnswer: a, type: t});
+    }
+
+    alert("Exam successfully set for students!");
+    window.location.href = 'teach.html';
+});
+</script>
+
+</body>
+</html>

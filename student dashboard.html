@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart Evaluation System | Student Dashboard</title>
+
+<style>
+/* ===== RESET & FONT ===== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ===== BODY ===== */
+body{
+    background:#f4f6f8;
+}
+
+/* ===== TOP BAR ===== */
+.topbar{
+    height:60px;
+    background:#ffffff;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 20px;
+    border-bottom:2px solid #ddd;
+}
+.topbar h2{
+    color:#5a0f1b;
+}
+
+/* ===== LAYOUT ===== */
+.container{
+    display:flex;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+    width:230px;
+    background:#5a0f1b;
+    height:calc(100vh - 60px);
+    padding-top:20px;
+}
+.sidebar a{
+    display:block;
+    padding:14px 20px;
+    margin:6px;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:500;
+}
+.sidebar a.active,
+.sidebar a:hover{
+    background:#7a1f2d;
+}
+
+/* ===== MAIN CONTENT ===== */
+.main{
+    flex:1;
+    padding:25px;
+}
+
+/* ===== SECTIONS ===== */
+.section{ display:none; }
+.section.active{ display:block; }
+
+.section-title{
+    background:#5a0f1b;
+    color:white;
+    padding:14px;
+    font-size:20px;
+    border-radius:12px;
+    margin-bottom:15px;
+}
+
+/* ===== CARD ===== */
+.card{
+    background:white;
+    padding:22px;
+    border-radius:16px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.12);
+}
+
+/* ===== TABLE ===== */
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+th, td{
+    padding:12px;
+    border-bottom:1px solid #ddd;
+    text-align:left;
+}
+th{
+    background:#f2f2f2;
+}
+
+/* ===== BUTTON ===== */
+button{
+    background:#5a0f1b;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+    transition:0.3s;
+}
+button:hover{
+    background:#7a1f2d;
+}
+
+/* ===== STATUS COLORS ===== */
+.upcoming{ color:#e67e22; font-weight:700; }
+.completed{ color:#2980b9; font-weight:700; }
+.pass{ color:#27ae60; font-weight:700; }
+
+/* ===== FOOTER ===== */
+footer{
+    text-align:center;
+    padding:15px;
+    font-size:13px;
+    color:#555;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+    .container{
+        flex-direction:column;
+    }
+    .sidebar{
+        width:100%;
+        height:auto;
+        display:flex;
+        flex-wrap:wrap;
+    }
+    .sidebar a{
+        flex:1;
+        text-align:center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<div class="topbar">
+    <h2>Smart Evaluation System</h2>
+    <div>Gayathri M R</div>
+</div>
+
+<div class="container">
+
+<!-- ===== SIDEBAR ===== -->
+<div class="sidebar">
+    <a class="active" onclick="showPage('dashboard',this)">Dashboard</a>
+    <a onclick="showPage('exams',this)">Exams</a>
+    <a onclick="showPage('results',this)">Results</a>
+    <a onclick="showPage('history',this)">Exam History</a>
+    <a onclick="showPage('notifications',this)">Notifications</a>
+    <a>Logout</a>
+</div>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="main">
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="section active">
+    <div class="section-title">Dashboard</div>
+    <div class="card">
+        <p><b>Name:</b> Gayathri M R</p><br>
+        <p><b>Admission No:</b> 23CS201</p><br>
+        <p><b>Course:</b> B.Tech Computer Science</p><br>
+        <p><b>Email:</b> 23CS201@mgits.ac.in</p>
+    </div>
+</div>
+
+<!-- EXAMS -->
+<div id="exams" class="section">
+    <div class="section-title">Exams</div>
+    <div class="card">
+        <table>
+            <tr>
+                <th>Exam</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            <tr>
+                <td>DSA Test</td>
+                <td class="upcoming">Upcoming</td>
+                <td><button onclick="startExam()">Start Exam</button></td>
+            </tr>
+            <tr>
+                <td>Python Quiz</td>
+                <td class="completed">Completed</td>
+                <td>—</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- RESULTS -->
+<div id="results" class="section">
+    <div class="section-title">Results</div>
+    <div class="card">
+        <table>
+            <tr>
+                <th>Exam</th>
+                <th>Marks</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>DSA Test</td>
+                <td>41 / 50</td>
+                <td class="pass">Pass</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- HISTORY -->
+<div id="history" class="section">
+    <div class="section-title">Exam History</div>
+    <div class="card">
+        <table>
+            <tr>
+                <th>Exam</th>
+                <th>Date</th>
+                <th>Marks</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>Python Quiz</td>
+                <td>10-Jan-2026</td>
+                <td>38 / 50</td>
+                <td class="pass">Pass</td>
+            </tr>
+            <tr>
+                <td>DBMS Test</td>
+                <td>22-Dec-2025</td>
+                <td>30 / 50</td>
+                <td class="pass">Pass</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!-- NOTIFICATIONS -->
+<div id="notifications" class="section">
+    <div class="section-title">Notifications</div>
+    <div class="card">
+        <ul>
+            <li>DSA Test scheduled for tomorrow</li>
+            <li>Results updated</li>
+        </ul>
+    </div>
+</div>
+
+</div>
+</div>
+
+<footer>
+© Smart Evaluation System
+</footer>
+
+<script>
+function showPage(pageId, element){
+    document.querySelectorAll('.section').forEach(sec=>{
+        sec.classList.remove('active');
+    });
+    document.getElementById(pageId).classList.add('active');
+
+    if(element){
+        document.querySelectorAll('.sidebar a').forEach(a=>{
+            a.classList.remove('active');
+        });
+        element.classList.add('active');
+    }
+}
+
+function startExam(){
+    alert("Exam Started (Demo)");
+}
+</script>
+
+</body>
+</html>
